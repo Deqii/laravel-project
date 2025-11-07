@@ -27,6 +27,7 @@ interface Product {
     name: string;
     price: number;
     description: string;
+    image_url?: string;
 }
 
 interface PageProps {
@@ -71,7 +72,12 @@ export default function Index() {
                         <TableCaption>A list of products</TableCaption>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[100px]">ID</TableHead>
+                                <TableHead className="w-[80px] text-center">
+                                    Image
+                                </TableHead>
+                                <TableHead className="w-[100px] text-center">
+                                    ID
+                                </TableHead>
                                 <TableHead>Name</TableHead>
                                 <TableHead>Price</TableHead>
                                 <TableHead>Description</TableHead>
@@ -82,12 +88,25 @@ export default function Index() {
                         </TableHeader>
                         <TableBody>
                             {products.map((product) => (
-                                <TableRow>
-                                    <TableCell className="font-medium">
+                                <TableRow key={product.id}>
+                                    <TableCell className="text-center">
+                                        {product.image_url ? (
+                                            <img
+                                                src={product.image_url}
+                                                alt={product.name}
+                                                className="mx-auto h-16 w-16 rounded-md object-cover"
+                                            />
+                                        ) : (
+                                            <span className="text-sm text-gray-400">
+                                                No Image
+                                            </span>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="text-center font-medium">
                                         {product.id}
                                     </TableCell>
                                     <TableCell>{product.name}</TableCell>
-                                    <TableCell>{product.price}</TableCell>
+                                    <TableCell>Rp {product.price}</TableCell>
                                     <TableCell>{product.description}</TableCell>
                                     <TableCell className="text-center">
                                         <Link
